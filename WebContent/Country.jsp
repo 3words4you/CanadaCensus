@@ -1,12 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*" %>
+<%@ page import="prog3060.g5.model.AreaDetail" %>
 
+<% ArrayList<AreaDetail> areaList = (ArrayList<AreaDetail>) session.getAttribute("areaList"); %>
+
+<%@include file="./Header.jsp" %>
+<body>
+	<div class="wrap">
+		<div class="row">
+    			<div class="col-12">
+    				<div class="list-group">
+				 
+				    <% if(areaList  != null) {%>
+					   	<% for(AreaDetail areaDetail : areaList ) { %>
+					      	<a class="list-group-item list-group-item-action" href="./AreaDetailServlet" role="tab"><%= areaDetail.getName() %></a>
+					   	<% } %>
+					<% }else{ %>
+					  	<p>No record</p>
+					<% } %>
+					
+    				</div>
+  			</div>
+	  	</div>
+	</div>
+	<%-- <table class="table">
+  		<thead class="thead-dark">
+    			<tr>
+      			<th scope="col">Code</th>
+      			<th scope="col">Level</th>
+      			<th scope="col">Name</th>
+      			<th scope="col">Alternative Code</th>
+    			</tr>
+  		</thead>
+  		<tbody>
+  			<% if(areaList  != null) {%>
+			   	<% for(AreaDetail araeDetail : areaList ) { %>
+			      	<tr>
+				      	<td><%= araeDetail.getCode() %></td>
+				      	<td><%= araeDetail.getLevel() %></td>
+				      	<td><%= araeDetail.getName() %></td>
+				      	<td><%= araeDetail.getAlternativeCode() %></td>
+		    			</tr>
+			   	<% } %>
+			<% }else{ %>
+			  	<tr>
+			  		<td>No Record</td>
+			  	</tr>
+			<% } %>
+  		</tbody>
+	</table> --%>
 </body>
 </html>
