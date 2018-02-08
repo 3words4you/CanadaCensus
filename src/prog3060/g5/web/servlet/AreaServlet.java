@@ -23,8 +23,7 @@ public class AreaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			int level = Integer.parseInt(request.getParameter("level"));
-			
-			ResultSet res = DBManager.GetAreaListByLevel(level);
+			ResultSet res = DBManager.GetAreaListByLevel(level,-1,-1);
 
 			ArrayList<AreaDetail> areaList = new ArrayList<AreaDetail>();
 	        while (res.next())
@@ -43,18 +42,23 @@ public class AreaServlet extends HttpServlet {
 	            areaList.add(areaDetail);
 	        }
 	        
-	        String url;
-	        switch (level) {
-            case 0:  url = "./Country.jsp";
-                     break;
-            default: url = "./Menu.jsp";
-                     break;
-	        }
-	        
 	        HttpSession tempSession = request.getSession(); 
+	        String url= "./AreaList.jsp";
+	        String title = "";
+	        switch (level) {
+            		case 0:  title = "The Country of Canada";
+            				 break;
+            		case 1:  title = "All Provinces of Canada";
+   				 		 break;
+            		case 2:  title = "All Cities of Canada";
+   				 		 break;
+            		default: title = "All Parts of Canada";
+                     	 break;
+	        }
+	        tempSession.setAttribute("title", title);
+	        
 	        tempSession.setAttribute("areaList", areaList);
-	        AreaListBean tempBean = new AreaListBean();
-	        tempBean.setAreaList(areaList);
+	        
 	        response.sendRedirect(url);
 	        
 		} catch (SQLException e) {

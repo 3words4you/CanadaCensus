@@ -26,10 +26,25 @@ public class DBManager{
 		
 		return tempConnection;
     }
+//	,floor(alternativeCode/1000) AS parentCode
 	
-	public static ResultSet GetAreaListByLevel(int level) throws SQLException {
+	public static ResultSet GetAreaListByLevel(int level,int parentCode, int alternativeCode) throws SQLException {
 		tempStatement = tempConnection.createStatement();
-		String query = "SELECT * FROM GEOGRAPHICAREA WHERE level="+level;
+		String query = "SELECT code,level,name,alternativeCode FROM GEOGRAPHICAREA WHERE level="+level;
+		//get subList
+		if(alternativeCode != -1 && parentCode != -1 ) {
+			if(level == 2) {
+				query += " AND ((alternativeCode-code)/1000)=" + parentCode;
+			}
+			
+		}
+		ResultSet res = tempStatement.executeQuery(query);
+		return res;
+	}
+	
+	public static ResultSet GetAreaDetailByAlternativeCode(int alternativeCode) throws SQLException {
+		tempStatement = tempConnection.createStatement();
+		String query = "SELECT * FROM GEOGRAPHICAREA WHERE alternativeCode="+alternativeCode;
 		ResultSet res = tempStatement.executeQuery(query);
 		return res;
 	}
