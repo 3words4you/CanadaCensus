@@ -22,6 +22,7 @@
 	      			<th scope="col">Level</th>
 	      			<th scope="col">Name</th>
 	      			<th scope="col">Alternative Code</th>
+	      			<th scope="col">Population(2016)</th>
 	    			</tr>
 	  		</thead>
 	  		<tbody>
@@ -30,6 +31,7 @@
 			      	<td><%= areaDetail.getLevel() %></td>
 			      	<td><%= areaDetail.getName() %></td>
 			      	<td><%= areaDetail.getAlternativeCode() %></td>
+			      	<td><%= areaDetail.getTotalPopulation() %></td>
 	    			</tr>  
 	  		</tbody>
 		</table>
@@ -40,7 +42,7 @@
     			<div class="col-12">
     				<div class="list-group">
 				 
-				    <% if(subAreaList  != null) {%>
+				    <% if(subAreaList.size()>0 ) {%>
 					   	<% for(AreaDetail subAreaDetail : subAreaList ) { %>
 					   		<% String url ="./AreaDetailServlet?alternativeCode="+ subAreaDetail.getAlternativeCode()+"&level="+subAreaDetail.getLevel()+"&code="+subAreaDetail.getCode(); %>
 					      	<a class="list-group-item list-group-item-action" href=<%= url %>><%= subAreaDetail.getName() %></a>

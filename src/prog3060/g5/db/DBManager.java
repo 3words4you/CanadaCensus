@@ -26,15 +26,18 @@ public class DBManager{
 		
 		return tempConnection;
     }
-//	,floor(alternativeCode/1000) AS parentCode
 	
-	public static ResultSet GetAreaListByLevel(int level,int parentCode, int alternativeCode) throws SQLException {
+	//if get all,parentCode is -1
+	public static ResultSet GetAreaList(int level,int parentCode) throws SQLException {
 		tempStatement = tempConnection.createStatement();
 		String query = "SELECT code,level,name,alternativeCode FROM GEOGRAPHICAREA WHERE level="+level;
 		//get subList
-		if(alternativeCode != -1 && parentCode != -1 ) {
+		if(parentCode != -1 ) {
 			if(level == 2) {
 				query += " AND ((alternativeCode-code)/1000)=" + parentCode;
+			}
+			if(level == 3) {
+				query += " AND MOD(code,1000) =" + parentCode;
 			}
 			
 		}
@@ -44,8 +47,9 @@ public class DBManager{
 	
 	public static ResultSet GetAreaDetailByAlternativeCode(int alternativeCode) throws SQLException {
 		tempStatement = tempConnection.createStatement();
-		String query = "SELECT * FROM GEOGRAPHICAREA WHERE alternativeCode="+alternativeCode;
+		String query = "SELECT g.*,SUM(a.combined) AS totalPopulation FROM GEOGRAPHICAREA g LEFT JOIN AGE a ON g.geographicAreaID = a.geographicArea AND a.censusYear=1 WHERE g.alternativeCode="+alternativeCode + " GROUP BY g.geographicAreaID,g.code,g.level,g.name,g.alternativeCode";
 		ResultSet res = tempStatement.executeQuery(query);
 		return res;
 	}
+	
 }

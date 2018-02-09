@@ -38,15 +38,17 @@ public class AreaDetailServlet extends HttpServlet {
 	            String tempName = res.getString("name");
 	            currentName = tempName;
 	            int tempAlternativeCode = res.getInt("alternativeCode"); 
+	            int tempTotalPopulation = res.getInt("totalPopulation");
 	            
 	            areaDetail.setCode(tempCode);
 	            areaDetail.setLevel(tempLevel);
 	            areaDetail.setName(tempName);
 	            areaDetail.setAlternativeCode(tempAlternativeCode); 
+	            areaDetail.setTotalPopulation(tempTotalPopulation);
 	        }
 	        
 	        //get subAreaList
-	        ResultSet subRes = DBManager.GetAreaListByLevel(nextLevel,code,alternativeCode);
+	        ResultSet subRes = DBManager.GetAreaList(nextLevel,code);
 			ArrayList<AreaDetail> subAreaList = new ArrayList<AreaDetail>();
 	        while (subRes.next())
 	        {

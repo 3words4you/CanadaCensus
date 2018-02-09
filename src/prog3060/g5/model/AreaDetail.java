@@ -5,6 +5,7 @@ public class AreaDetail {
 	int level;
 	String name;
 	int alternativeCode;
+	int totalPopulation;
 	
 	public int getCode() {
 		return code;
@@ -29,5 +30,11 @@ public class AreaDetail {
 	}
 	public void setAlternativeCode(int alternativeCode) {
 		this.alternativeCode = alternativeCode;
+	}
+	public int getTotalPopulation() {
+		return totalPopulation;
+	}
+	public void setTotalPopulation(int totalPopulation) {
+		this.totalPopulation = totalPopulation;
 	}
 }

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import prog3060.g5.bean.AreaListBean;
 import prog3060.g5.db.DBManager;
 import prog3060.g5.model.AreaDetail;
 
@@ -23,7 +22,7 @@ public class AreaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			int level = Integer.parseInt(request.getParameter("level"));
-			ResultSet res = DBManager.GetAreaListByLevel(level,-1,-1);
+			ResultSet res = DBManager.GetAreaList(level,-1);
 
 			ArrayList<AreaDetail> areaList = new ArrayList<AreaDetail>();
 	        while (res.next())
