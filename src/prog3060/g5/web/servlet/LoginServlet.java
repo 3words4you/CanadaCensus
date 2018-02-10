@@ -8,6 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import prog3060.g5.db.DBManager;
 
 @WebServlet("/LoginServlet")
@@ -26,7 +28,8 @@ public class LoginServlet extends HttpServlet {
 			
 			Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
 			Connection tempConnection = DBManager.OpenConnection(username,password);
-
+			HttpSession tempSession = request.getSession();
+			tempSession.setAttribute("conn", tempConnection);
 			response.sendRedirect("./Menu.jsp");
 			
 	    } catch (SQLException e) {

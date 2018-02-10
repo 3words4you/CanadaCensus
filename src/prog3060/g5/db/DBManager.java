@@ -51,5 +51,18 @@ public class DBManager{
 		ResultSet res = tempStatement.executeQuery(query);
 		return res;
 	}
+	//span exactly 5 year and over100
+	public static ResultSet GetAgeGroupList() throws SQLException {
+		tempStatement = tempConnection.createStatement();
+		String query = "SELECT * FROM AGEGROUP WHERE ageGroupID IN (3,9,15,22,28,34,40,46,52,58,64,70,76,83,89,95,101,108,114,120,126)";
+		ResultSet res = tempStatement.executeQuery(query);
+		return res;
+	}
 	
+	public static ResultSet GetAgeGroupDetail(int ageGroupID,int censusYear) throws SQLException {
+		tempStatement = tempConnection.createStatement();
+		String query = "SELECT SUM(male) AS totalMale,SUM(female) AS totalFemale FROM AGE WHERE ageGroup="+ageGroupID+" AND censusYear="+censusYear;
+		ResultSet res = tempStatement.executeQuery(query);
+		return res;
+	}
 }
