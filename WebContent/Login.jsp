@@ -1,16 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
+<% Boolean match = (Boolean) session.getAttribute("match"); %>
+<%@include file="./Header.jsp" %>
 <body>
-	<form method="POST" action="./LoginServlet">
-		Username: <input type="text" name="username">
-		Password: <input type="text" name="password">
-		<input type="submit">
-	</form>
+	<div class="wrap" align="center">
+		<h3>Canada Census</h3>
+		<% if(!match) { %>
+			<p style="color:red">It seems like you forgot your password :(</p>
+		<% } %>
+		<br>
+		<form method="POST" action="./LoginServlet">
+  			<div class="form-group row justify-content-center">
+			    <div class="col-sm-3">
+			      <input type="text" class="form-control" name="username" placeholder="Username">
+			    </div>
+  			</div>
+  			<div class="form-group row justify-content-center">
+			    <div class="col-sm-3">
+			      <input type="password" class="form-control" name="password" placeholder="Password">
+			    </div>
+  			</div>
+ 			 <div class="form-group row justify-content-center">
+			    <div class="col-sm-12">
+			      <button type="submit" class="btn btn-primary">Sign in</button>
+			    </div>
+  			</div>
+		</form>
+	</div>
 </body>
 </html>

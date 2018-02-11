@@ -29,32 +29,7 @@
     				</div>
   			</div>
 	  	</div>
+	  	<br>
 	</div>
-	<%-- <table class="table">
-  		<thead class="thead-dark">
-    			<tr>
-      			<th scope="col">Code</th>
-      			<th scope="col">Level</th>
-      			<th scope="col">Name</th>
-      			<th scope="col">Alternative Code</th>
-    			</tr>
-  		</thead>
-  		<tbody>
-  			<% if(areaList  != null) {%>
-			   	<% for(AreaDetail araeDetail : areaList ) { %>
-			      	<tr>
-				      	<td><%= araeDetail.getCode() %></td>
-				      	<td><%= araeDetail.getLevel() %></td>
-				      	<td><%= araeDetail.getName() %></td>
-				      	<td><%= araeDetail.getAlternativeCode() %></td>
-		    			</tr>
-			   	<% } %>
-			<% }else{ %>
-			  	<tr>
-			  		<td>No Record</td>
-			  	</tr>
-			<% } %>
-  		</tbody>
-	</table> --%>
 </body>
 </html>

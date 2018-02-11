@@ -18,28 +18,33 @@ public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L; 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession tempSession = request.getSession();
+		setIsMatchFlag(tempSession,true);
 		response.sendRedirect("./Login.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession tempSession = request.getSession();
 		try {
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			
 			Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
 			Connection tempConnection = DBManager.OpenConnection(username,password);
-			HttpSession tempSession = request.getSession();
 			tempSession.setAttribute("conn", tempConnection);
+			setIsMatchFlag(tempSession,true);
 			response.sendRedirect("./Menu.jsp");
 			
 	    } catch (SQLException e) {
-	    	
-	        e.printStackTrace();
 	        String redirectUrl = "./Error.jsp";
 	        
 	        //incorrect userName or password
 	        if(e.getErrorCode() == 40000) {
 	        		redirectUrl = "./Login.jsp";
+	        		setIsMatchFlag(tempSession,false);
+	        }
+	        else {
+	        		e.printStackTrace();
 	        }
 	        response.sendRedirect(redirectUrl);
 	        
@@ -47,6 +52,11 @@ public class LoginServlet extends HttpServlet {
 	        e.printStackTrace();
 	        response.sendRedirect("./Error.jsp");
 	    }
+	}
+	
+	//match flag for the username password
+	public void setIsMatchFlag(HttpSession tempSession,Boolean flag) {	
+		tempSession.setAttribute("match", flag);
 	}
 	
 
